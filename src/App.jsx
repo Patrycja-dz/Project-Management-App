@@ -2,7 +2,7 @@ import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
-    <main>
+    <main className="h-screen m-0 p-0">
       <Sidebar />
     </main>
   );
