@@ -1,42 +1,27 @@
 import Input from "../components/Input";
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import Actions from "./Actions";
+function NewProject({ onAddProject }) {
+  const title = useRef();
+  const description = useRef();
+  const dueDate = useRef();
 
-function NewProject() {
-  const [userInput, setUserInput] = useState({
-    title: "",
-    description: "",
-    dueDate: "",
-  });
-  const { title, description, dueDate } = userInput;
-  function handleChange(identifier, value) {
-    setUserInput((prevState) => {
-      return {
-        ...prevState,
-        [identifier]: value,
-      };
-    });
+  function saveProjectHandler() {
+    const project = {
+      enteredTitle: title.current.value,
+      enteredDescription: description.current.value,
+      enteredDueDate: dueDate.current.value,
+    };
+    onAddProject(project);
   }
+
   return (
     <div className="w-[35rem] mt-16">
-      <Actions />
+      <Actions onProjectSave={saveProjectHandler} />
       <div>
-        <Input
-          label="Title"
-          value={title}
-          onChange={(e) => handleChange("title", e.target.value)}
-        />
-        <Input
-          label="Description"
-          Tag="textarea"
-          value={description}
-          onChange={(e) => handleChange("description", e.target.value)}
-        />
-        <Input
-          label="Due Date"
-          value={dueDate}
-          onChange={(e) => handleChange("dueDate", e.target.value)}
-        />
+        <Input label="Title" ref={title} type="text" />
+        <Input label="Description" Tag="textarea" ref={description} />
+        <Input label="Due Date" ref={dueDate} type="date" />
       </div>
     </div>
   );
