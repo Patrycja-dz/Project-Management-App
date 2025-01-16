@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import noProjectImage from "../assets/no-projects.png";
 import Button from "./Button";
-function NoProjectSelected() {
+function NoProjectSelected({ onStartAddProject }) {
   const NoProject = styled.div`
     text-align: center;
     margin-top: 6rem;
@@ -31,9 +31,7 @@ function NoProjectSelected() {
       />
       <h2>No project selected</h2>
       <p>Select a project or start with new one</p>
-      <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Create a new project
-      </Button>
+      <Button onClick={onStartAddProject}>Create a new project</Button>
     </NoProject>
   );
 }

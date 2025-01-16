@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-function Sidebar() {
+function Sidebar({ onStartAddProject }) {
   const Sidebar = styled.aside`
     background-color: #222831;
     color: #fff;
@@ -19,7 +19,7 @@ function Sidebar() {
     <Sidebar>
       <p>All projects (8)</p> {/* This should be dynamic */}
       <div>
-        <Button>+ Add project</Button>
+        <Button onClick={onStartAddProject}>+ Add project</Button>
       </div>
       <ul>
         <li>Project 1</li>
