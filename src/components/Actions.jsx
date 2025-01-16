@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Actions({ onProjectSave }) {
+function Actions({ onProjectSave, onCancel }) {
   const Menu = styled.menu`
     display: flex;
     justify-content: flex-end;
@@ -38,7 +38,7 @@ function Actions({ onProjectSave }) {
   return (
     <Menu>
       <li>
-        <button>Cancel</button>
+        <button onClick={onCancel}>Cancel</button>
       </li>
       <li>
         <button onClick={onProjectSave}>Save</button>
