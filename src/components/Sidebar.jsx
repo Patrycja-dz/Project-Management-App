@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-function Sidebar({ onStartAddProject }) {
+function Sidebar({ onStartAddProject, projects }) {
   const Sidebar = styled.aside`
     background-color: #222831;
     color: #fff;
@@ -13,6 +13,19 @@ function Sidebar({ onStartAddProject }) {
       font-size: calc(0.75rem + 0.5vw);
       margin-bottom: 1.5rem;
     }
+
+    li > button {
+      width: 100%;
+      background-color: #a6cdc1;
+      border-radius: 0.45rem;
+      padding: 0.5rem 1rem;
+      color: #222831;
+      font-weight: 600;
+      transition: background-color 0.6s ease-in-out;
+    }
+    li > button:hover {
+      background-color: #79a3a1;
+    }
   `;
 
   return (
@@ -21,9 +34,12 @@ function Sidebar({ onStartAddProject }) {
       <div>
         <Button onClick={onStartAddProject}>+ Add project</Button>
       </div>
-      <ul>
-        <li>Project 1</li>
-        <li>Project 2</li> {/* This should be dynamic */}
+      <ul className="mt-8">
+        {projects.map((project) => (
+          <li key={project.id}>
+            <button>{project.title}</button>
+          </li>
+        ))}
       </ul>
     </Sidebar>
   );
