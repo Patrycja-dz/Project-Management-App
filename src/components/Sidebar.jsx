@@ -1,44 +1,73 @@
 import styled from "styled-components";
-const Sidebar = () => {
-  const Sidebar = styled.aside`
+import Button from "./Button";
+function Sidebar({
+  onStartAddProject,
+  projects,
+  onSelectedProject,
+  selectedProjectId,
+}) {
+  const SidebarSidebar = styled.aside`
     background-color: #222831;
     color: #fff;
     padding: 2.25rem 3.45rem;
     width: 20%;
     border-radius: 0 20px 20px 0;
-    height: 100svh;
-    & p {
+    height: 100vh;
+
+    p {
       font-size: calc(0.75rem + 0.5vw);
       margin-bottom: 1.5rem;
     }
-    & button {
-      background-color: #00adb5;
-      color: #eeeeee;
-      border: none;
-      padding: 0.75rem 3.75rem;
-      border-radius: 10px;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      cursor: pointer;
-      &:hover {
-        background-color: #bf4f74;
-        transition: background-color 0.6s ease-in-out;
-      }
+
+    li > button {
+      width: 100%;
+      background-color: #a6cdc1;
+      border-radius: 0.45rem;
+      padding: 0.5rem 1rem;
+      color: #222831;
+      font-weight: 600;
+      transition: background-color 0.6s ease-in-out;
+      margin-bottom: 0.5rem;
+    }
+    li > button:hover {
+      background-color: #79a3a1;
+    }
+    .currentProject {
+      background-color: #ff8000;
     }
   `;
+  const projectsLength =
+    projects.length > 0 ? projects.length : "Currently there are no projects";
+  const projectOrProjects = projects.length === 1 ? "Project" : "All projects";
 
   return (
-    <Sidebar>
-      <p>All projects (8)</p> {/* This should be dynamic */}
+    <SidebarSidebar>
+      <p>
+        {projectOrProjects} ({projectsLength})
+      </p>
       <div>
-        <button>+ Add project</button>
+        <Button onClick={onStartAddProject}>+ Add project</Button>
       </div>
-      <ul>
-        <li>Project 1</li>
-        <li>Project 2</li> {/* This should be dynamic */}
+      <ul className="mt-8">
+        {projects.map((project) => {
+          let cssClasses = "w-full text-left px-2 py-1 rounded-sm ";
+          if (project.id === selectedProjectId) {
+            cssClasses += "currentProject";
+          }
+          return (
+            <li key={project.id}>
+              <button
+                onClick={() => onSelectedProject(project.id)}
+                className={cssClasses}
+              >
+                {project.title}
+              </button>
+            </li>
+          );
+        })}
       </ul>
-    </Sidebar>
+    </SidebarSidebar>
   );
-};
+}
 
 export default Sidebar;
