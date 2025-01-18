@@ -8,8 +8,60 @@ function App() {
   const [projects, setProject] = useState({
     selectedProjectId: undefined,
     project: [],
+    tasks: [],
   });
 
+  function handleAddTask(text) {
+    if (!text.trim() || !projects.selectedProjectId) return;
+    setProject((prevState) => {
+      const taskId = Math.random();
+      const newTask = {
+        text: text,
+        projectId: prevState.selectedProjectId,
+        id: taskId,
+      };
+      return {
+        ...prevState,
+        tasks: [newTask, ...prevState.tasks],
+      };
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    setProject((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        tasks: prevState.tasks.filter((task) => task.id !== taskId),
+      };
+    });
+  }
+  function handleEditTask(taskId, newText) {
+    setProject((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.map((task) => {
+          if (task.id === taskId) {
+            return {
+              ...task,
+              text: newText,
+            };
+          }
+        }),
+      };
+    });
+  }
+
+  function handleResolveTask(taskId) {
+    setProject((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.map((task) =>
+          task.id === taskId ? { ...task, resolved: true } : task
+        ),
+      };
+    });
+  }
   function handleSelectedProject(projectId) {
     setProject((prevState) => {
       return {
@@ -66,7 +118,15 @@ function App() {
   );
 
   let content = (
-    <SelectedProject project={selectedProject} onDelete={handleDelete} />
+    <SelectedProject
+      project={selectedProject}
+      onDelete={handleDelete}
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
+      onEditTask={handleEditTask}
+      onResolveTask={handleResolveTask}
+      tasks={projects.tasks}
+    />
   );
 
   if (projects.selectedProjectId === null) {
@@ -81,6 +141,7 @@ function App() {
   return (
     <main className="h-screen m-0 p-0 flex gap-8">
       <Sidebar
+        selectedProjectId={projects.selectedProjectId}
         onStartAddProject={handleProjectStartSelection}
         projects={projects.project}
         onSelectedProject={handleSelectedProject}
