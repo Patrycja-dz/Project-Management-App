@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import Button from "./Button";
-function Sidebar({ onStartAddProject, projects }) {
+function Sidebar({
+  onStartAddProject,
+  projects,
+  onSelectedProject,
+  selectedProjectId,
+}) {
   const Sidebar = styled.aside`
     background-color: #222831;
     color: #fff;
@@ -22,6 +27,7 @@ function Sidebar({ onStartAddProject, projects }) {
       color: #222831;
       font-weight: 600;
       transition: background-color 0.6s ease-in-out;
+      margin-bottom: 0.5rem;
     }
     li > button:hover {
       background-color: #79a3a1;
@@ -35,11 +41,24 @@ function Sidebar({ onStartAddProject, projects }) {
         <Button onClick={onStartAddProject}>+ Add project</Button>
       </div>
       <ul className="mt-8">
-        {projects.map((project) => (
-          <li key={project.id}>
-            <button>{project.title}</button>
-          </li>
-        ))}
+        {projects.map((project) => {
+          let cssClasses = "w-full text-left px-2 py-1 rounded-sm ";
+          if (project.id === selectedProjectId) {
+            cssClasses += " bg-stone-800 text-stone-200";
+          } else {
+            cssClasses += " text-stone-400";
+          }
+          return (
+            <li key={project.id}>
+              <button
+                onClick={() => onSelectedProject(project.id)}
+                className={cssClasses}
+              >
+                {project.title}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </Sidebar>
   );
