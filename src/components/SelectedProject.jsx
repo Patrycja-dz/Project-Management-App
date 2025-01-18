@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
-function SelectedProject({ project }) {
+function SelectedProject({ project, onDelete }) {
   const SelectedProjectWrapper = styled.div`
     width: 35rem;
     margin-top: 1rem;
@@ -37,7 +37,7 @@ function SelectedProject({ project }) {
       <header>
         <div>
           <h1>{title}</h1>
-          <Button>Delete</Button>
+          <Button onClick={onDelete}>Delete</Button>
         </div>
         <p>{formattedDueDate}</p>
         <p className="whitespace-pre-wrap">{description}</p>
