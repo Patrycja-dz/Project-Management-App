@@ -6,7 +6,7 @@ function Sidebar({
   onSelectedProject,
   selectedProjectId,
 }) {
-  const Sidebar = styled.aside`
+  const SidebarSidebar = styled.aside`
     background-color: #222831;
     color: #fff;
     padding: 2.25rem 3.45rem;
@@ -32,11 +32,19 @@ function Sidebar({
     li > button:hover {
       background-color: #79a3a1;
     }
+    .currentProject {
+      background-color: #ff8000;
+    }
   `;
+  const projectsLength =
+    projects.length > 0 ? projects.length : "Currently there are no projects";
+  const projectOrProjects = projects.length === 1 ? "Project" : "All projects";
 
   return (
-    <Sidebar>
-      <p>All projects (8)</p> {/* This should be dynamic */}
+    <SidebarSidebar>
+      <p>
+        {projectOrProjects} ({projectsLength})
+      </p>
       <div>
         <Button onClick={onStartAddProject}>+ Add project</Button>
       </div>
@@ -44,9 +52,7 @@ function Sidebar({
         {projects.map((project) => {
           let cssClasses = "w-full text-left px-2 py-1 rounded-sm ";
           if (project.id === selectedProjectId) {
-            cssClasses += " bg-stone-800 text-stone-200";
-          } else {
-            cssClasses += " text-stone-400";
+            cssClasses += "currentProject";
           }
           return (
             <li key={project.id}>
@@ -60,7 +66,7 @@ function Sidebar({
           );
         })}
       </ul>
-    </Sidebar>
+    </SidebarSidebar>
   );
 }
 

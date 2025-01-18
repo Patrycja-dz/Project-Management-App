@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
-function SelectedProject({ project, onDelete }) {
+import Tasks from "./Tasks/Tasks";
+function SelectedProject({
+  project,
+  onDelete,
+  onAddTask,
+  onDeleteTask,
+  onEditTask,
+  onResolveTask,
+  tasks,
+}) {
   const SelectedProjectWrapper = styled.div`
     width: 35rem;
     margin-top: 1rem;
@@ -42,7 +51,13 @@ function SelectedProject({ project, onDelete }) {
         <p>{formattedDueDate}</p>
         <p className="whitespace-pre-wrap">{description}</p>
       </header>
-      TASKS
+      <Tasks
+        onAdd={onAddTask}
+        onDelete={onDeleteTask}
+        tasks={tasks}
+        onEdit={onEditTask}
+        onResolve={onResolveTask}
+      />
     </SelectedProjectWrapper>
   );
 }

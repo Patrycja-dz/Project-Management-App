@@ -32,7 +32,7 @@ function Label({ label, children, ...props }) {
 
   return (
     <LabelWrapper>
-      <label {...props}>{label}</label>
+      {label && <label {...props}>{label}</label>}
       {children}
     </LabelWrapper>
   );
